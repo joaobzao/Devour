@@ -1,7 +1,7 @@
 package com.joaozao.devour
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import com.joaozao.devour.ui.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
@@ -15,5 +15,4 @@ class MainActivity : AppCompatActivity() {
                     .commitNow()
         }
     }
-
 }
