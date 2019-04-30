@@ -1,7 +1,12 @@
 package com.joaozao.devour.ui.main
 
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+
 
 class MainViewModel : ViewModel() {
-    val welcome = "Welcome to main_fragment"
+    private val _welcome = MutableLiveData("Welcome to main_fragment")
+
+    val welcome : LiveData<String> = _welcome
 }
