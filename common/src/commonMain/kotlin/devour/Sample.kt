@@ -1,4 +1,4 @@
-package sample
+package devour
 
 fun hello(): String = "Hello from Kotlin"
 

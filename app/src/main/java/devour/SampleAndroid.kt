@@ -1,8 +1,9 @@
-package sample
+package devour
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import sample.R
 
 class MainActivity : AppCompatActivity() {
 
