@@ -5,6 +5,13 @@ It looks like just another food/restaurant app but actually this one tells you w
 [![codebeat badge](https://codebeat.co/badges/6d2a3e78-e94e-424e-b6c4-ee99506280a9)](https://codebeat.co/projects/github-com-joaobzao-devour-master)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
+## Repository structure
+
+| Branch | Description |
+| ------------- | ------------- |
+| [master](https://github.com/joaobzao/Devour) | Devour android app using most of the Android Architecture Components, Jetpack 🚀 . |
+| [KMMP/master](https://github.com/joaobzao/Devour/tree/KMPP/master) | Devour Kotlin Multiplatform project, targeting Android and iOS. |
+
 License
 =======
 
