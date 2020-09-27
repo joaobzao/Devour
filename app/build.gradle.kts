@@ -23,12 +23,24 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
+    buildFeatures {
+        // Enables Jetpack Compose for this module
+        compose = true
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
         jvmTarget = "1.8"
+        useIR = true
+        freeCompilerArgs = listOf("-Xallow-jvm-ir-dependencies", "-Xskip-prerelease-check")
+    }
+
+    composeOptions {
+        kotlinCompilerVersion = "1.4.0"
+        kotlinCompilerExtensionVersion = "1.0.0-alpha03"
     }
 }
 
@@ -39,7 +51,20 @@ dependencies {
     implementation("androidx.core:core-ktx:1.3.1")
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("com.google.android.material:material:1.2.1")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.1")
+
+    implementation("androidx.compose.ui:ui:1.0.0-alpha03")
+    // Tooling support (Previews, etc.)
+    implementation("androidx.ui:ui-tooling:1.0.0-alpha03")
+    // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
+    implementation("androidx.compose.foundation:foundation:1.0.0-alpha03")
+    // Material Design
+    implementation("androidx.compose.material:material:1.0.0-alpha03")
+    // Material design icons
+    implementation("androidx.compose.material:material-icons-core:1.0.0-alpha03")
+    implementation("androidx.compose.material:material-icons-extended:1.0.0-alpha03")
+    // Integration with observables
+    implementation("androidx.compose.runtime:runtime-livedata:1.0.0-alpha03")
+    implementation("androidx.compose.runtime:runtime-rxjava2:1.0.0-alpha03")
 
     testImplementation("junit:junit:4.13")
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
