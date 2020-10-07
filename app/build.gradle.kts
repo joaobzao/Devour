@@ -1,5 +1,6 @@
 plugins {
     id("com.android.application")
+    id("com.google.gms.google-services")
     kotlin("android")
     kotlin("android.extensions")
 }
@@ -65,6 +66,9 @@ dependencies {
     // Integration with observables
     implementation("androidx.compose.runtime:runtime-livedata:1.0.0-alpha03")
     implementation("androidx.compose.runtime:runtime-rxjava2:1.0.0-alpha03")
+
+    implementation(platform("com.google.firebase:firebase-bom:25.11.0"))
+    implementation("com.google.firebase:firebase-analytics-ktx")
 
     testImplementation("junit:junit:4.13")
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
