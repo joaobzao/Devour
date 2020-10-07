@@ -12,6 +12,10 @@ It looks like just another food/restaurant app but actually this one tells you w
 | [main](https://github.com/joaobzao/Devour) | Devour android app using most of the Android Architecture Components, Jetpack 🚀 . |
 | [KMMP/master](https://github.com/joaobzao/Devour/tree/KMPP/master) | Devour Kotlin Multiplatform project, targeting Android and iOS. |
 
+## Signing
+
+androiddebugkey password should be saved to `COM_BRONZES_DEVOUR_DEBUG_PASSWORD`
+
 License
 =======
 
@@ -29,7 +33,3 @@ License
     See the License for the specific language governing permissions and
     limitations under the License.
 
-
-## Signing
-
-androiddebugkey password should be saved to `COM_BRONZES_DEVOUR_DEBUG_PASSWORD`
