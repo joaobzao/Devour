@@ -1,9 +1,12 @@
 package com.bronzes.devour.authentication
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.Arrangement
@@ -29,7 +32,6 @@ import com.google.firebase.auth.GoogleAuthProvider
 
 class AuthActivity : AppCompatActivity() {
     private val USER = "user"
-    private val RC_SIGN_IN: Int = 10
     private val TAG = this.javaClass.name
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var authViewModel: AuthViewModel
@@ -45,28 +47,28 @@ class AuthActivity : AppCompatActivity() {
         authViewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+    private fun signIn() {
+        startForResult.launch(googleSignInClient.signInIntent)
+    }
 
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            try {
-                // Google Sign In was successful, authenticate with Firebase
-                val account = task.getResult(ApiException::class.java)!!
-                Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
-                getGoogleAuthCredential(account)
-            } catch (e: ApiException) {
-                // Google Sign In failed, update UI appropriately
-                Log.w(TAG, "Google sign in failed", e)
-                // ...
-            }
+    private val startForResult = registerForActivityResult(StartActivityForResult()) {
+            result: ActivityResult ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            handleGoogleSignInResult(result)
         }
     }
 
-    private fun signIn() {
-        val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
+    private fun handleGoogleSignInResult(result: ActivityResult) {
+        val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+        try {
+            // Google Sign In was successful, authenticate with Firebase
+            val account = task.getResult(ApiException::class.java)!!
+            Log.d(TAG, "firebaseAuthWithGoogle:" + account.email)
+            getGoogleAuthCredential(account)
+        } catch (e: ApiException) {
+            // Google Sign In failed, update UI appropriately
+            Log.w(TAG, "Google sign in failed", e)
+        }
     }
 
     private fun getGoogleAuthCredential(googleSignInAccount: GoogleSignInAccount) {
