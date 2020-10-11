@@ -47,6 +47,15 @@ class AuthActivity : AppCompatActivity() {
         authViewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
     }
 
+    private fun initGoogleSignInClient() {
+        val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+
+        googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions)
+    }
+
     private fun signIn() {
         startForResult.launch(googleSignInClient.signInIntent)
     }
@@ -95,15 +104,6 @@ class AuthActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun initGoogleSignInClient() {
-        val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
-
-        googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions)
-    }
-
     private fun createNewUser(authenticatedUser: User) {
         authViewModel.createUser(authenticatedUser)
         authViewModel.createdUserLiveData!!.observe(this, { user: User ->
@@ -125,7 +125,7 @@ class AuthActivity : AppCompatActivity() {
             Button(
                 onClick = { signIn() },
             ) {
-                Text("Button")
+                Text("Sign-in with Google")
             }
         }
     }
