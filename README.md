@@ -9,7 +9,7 @@ It looks like just another food/restaurant app but actually this one tells you w
 
 | Branch | Description |
 | ------------- | ------------- |
-| [main](https://github.com/joaobzao/Devour) | Devour android app using most of the Android Architecture Components, Jetpack 🚀 . |
+| [main](https://github.com/joaobzao/Devour) | Devour android app with Jetpack 🚀 . |
 | [KMMP/master](https://github.com/joaobzao/Devour/tree/KMPP/master) | Devour Kotlin Multiplatform project, targeting Android and iOS. |
 
 ## Signing
