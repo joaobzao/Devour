@@ -41,7 +41,7 @@ android {
 
     composeOptions {
         kotlinCompilerVersion = "1.4.0"
-        kotlinCompilerExtensionVersion = "1.0.0-alpha03"
+        kotlinCompilerExtensionVersion = "1.0.0-alpha04"
     }
 }
 
@@ -53,19 +53,19 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("com.google.android.material:material:1.2.1")
 
-    implementation("androidx.compose.ui:ui:1.0.0-alpha03")
+    implementation("androidx.compose.ui:ui:1.0.0-alpha04")
     // Tooling support (Previews, etc.)
-    implementation("androidx.ui:ui-tooling:1.0.0-alpha03")
+    implementation("androidx.ui:ui-tooling:1.0.0-alpha04")
     // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
-    implementation("androidx.compose.foundation:foundation:1.0.0-alpha03")
+    implementation("androidx.compose.foundation:foundation:1.0.0-alpha04")
     // Material Design
-    implementation("androidx.compose.material:material:1.0.0-alpha03")
+    implementation("androidx.compose.material:material:1.0.0-alpha04")
     // Material design icons
-    implementation("androidx.compose.material:material-icons-core:1.0.0-alpha03")
-    implementation("androidx.compose.material:material-icons-extended:1.0.0-alpha03")
+    implementation("androidx.compose.material:material-icons-core:1.0.0-alpha04")
+    implementation("androidx.compose.material:material-icons-extended:1.0.0-alpha04")
     // Integration with observables
-    implementation("androidx.compose.runtime:runtime-livedata:1.0.0-alpha03")
-    implementation("androidx.compose.runtime:runtime-rxjava2:1.0.0-alpha03")
+    implementation("androidx.compose.runtime:runtime-livedata:1.0.0-alpha04")
+    implementation("androidx.compose.runtime:runtime-rxjava2:1.0.0-alpha04")
 
     implementation(platform("com.google.firebase:firebase-bom:25.11.0"))
     implementation("com.google.firebase:firebase-analytics-ktx")
