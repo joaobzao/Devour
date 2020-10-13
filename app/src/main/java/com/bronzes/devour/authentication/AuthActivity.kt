@@ -29,7 +29,6 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.GoogleAuthProvider
 
-
 class AuthActivity : AppCompatActivity() {
     private val USER = "user"
     private val TAG = this.javaClass.name

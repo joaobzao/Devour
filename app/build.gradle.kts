@@ -1,8 +1,10 @@
 plugins {
     id("com.android.application")
     id("com.google.gms.google-services")
+    id("dagger.hilt.android.plugin")
     kotlin("android")
     kotlin("android.extensions")
+    kotlin("kapt")
 }
 
 android {
@@ -74,6 +76,9 @@ dependencies {
     implementation("com.google.android.gms:play-services-auth:18.1.0")
 
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    implementation("com.google.dagger:hilt-android:2.28-alpha")
+    kapt("com.google.dagger:hilt-android-compiler:2.28-alpha")
 
     testImplementation("junit:junit:4.13")
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
