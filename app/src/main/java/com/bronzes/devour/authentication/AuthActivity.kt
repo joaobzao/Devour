@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.Arrangement
@@ -28,12 +29,15 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.GoogleAuthProvider
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AuthActivity : AppCompatActivity() {
     private val USER = "user"
     private val TAG = this.javaClass.name
+    private val authViewModel: AuthViewModel by viewModels()
+
     private lateinit var googleSignInClient: GoogleSignInClient
-    private lateinit var authViewModel: AuthViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +47,6 @@ class AuthActivity : AppCompatActivity() {
         }
 
         initGoogleSignInClient()
-        authViewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
     }
 
     private fun initGoogleSignInClient() {
