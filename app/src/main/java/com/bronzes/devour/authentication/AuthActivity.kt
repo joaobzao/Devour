@@ -19,7 +19,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.setContent
-import androidx.lifecycle.ViewModelProvider
 import androidx.ui.tooling.preview.Preview
 import com.bronzes.devour.R
 import com.google.android.gms.auth.api.signin.GoogleSignIn

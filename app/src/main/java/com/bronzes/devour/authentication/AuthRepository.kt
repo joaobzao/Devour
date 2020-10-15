@@ -3,9 +3,10 @@ package com.bronzes.devour.authentication
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.AuthCredential
+import javax.inject.Inject
 
 
-class AuthRepository {
+class AuthRepository @Inject constructor() {
     fun firebaseSignInWithGoogle(googleAuthCredential: AuthCredential?): LiveData<User>? {
         val authenticatedUserMutableLiveData = MutableLiveData<User>()
 
