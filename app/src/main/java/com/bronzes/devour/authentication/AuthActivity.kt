@@ -50,9 +50,9 @@ class AuthActivity : AppCompatActivity() {
 
     private fun initGoogleSignInClient() {
         val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build()
 
         googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions)
     }
@@ -61,8 +61,7 @@ class AuthActivity : AppCompatActivity() {
         startForResult.launch(googleSignInClient.signInIntent)
     }
 
-    private val startForResult = registerForActivityResult(StartActivityForResult()) {
-            result: ActivityResult ->
+    private val startForResult = registerForActivityResult(StartActivityForResult()) { result: ActivityResult ->
         if (result.resultCode == Activity.RESULT_OK) {
             handleGoogleSignInResult(result)
         }
@@ -90,11 +89,7 @@ class AuthActivity : AppCompatActivity() {
     private fun signInWithGoogleAuthCredential(googleAuthCredential: AuthCredential) {
         authViewModel.signInWithGoogle(googleAuthCredential)
         authViewModel.authenticatedUserLiveData?.observe(this) { authenticatedUser ->
-            if (authenticatedUser.isNew) {
-                createNewUser(authenticatedUser)
-            } else {
-                goToMainActivity(authenticatedUser)
-            }
+            goToMainActivity(authenticatedUser)
         }
     }
 
@@ -105,26 +100,16 @@ class AuthActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun createNewUser(authenticatedUser: User) {
-        authViewModel.createUser(authenticatedUser)
-        authViewModel.createdUserLiveData!!.observe(this, { user: User ->
-            if (user.isCreated) {
-                Toast.makeText(this, user.name, Toast.LENGTH_SHORT).show()
-            }
-            goToMainActivity(user);
-        })
-    }
-
     @Preview
     @Composable
     fun Greetings() {
         Column(
-            modifier = Modifier.fillMaxWidth().fillMaxHeight(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+                modifier = Modifier.fillMaxWidth().fillMaxHeight(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Button(
-                onClick = { signIn() },
+                    onClick = { signIn() },
             ) {
                 Text("Sign-in with Google")
             }

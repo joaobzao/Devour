@@ -7,8 +7,5 @@ import kotlinx.android.parcel.Parcelize
 data class User(
     val uid: String,
     val name: String,
-    val email: String,
-    val isNew: Boolean,
-    val isCreated: Boolean,
-    val isAuthenticated: Boolean
+    val email: String
 ): Parcelable
