@@ -12,7 +12,6 @@ class AuthViewModel @ViewModelInject constructor(): ViewModel() {
     @Inject lateinit var authRepository: AuthRepository
 
     var authenticatedUserLiveData: LiveData<User>? = null
-    var testUserLiveData: LiveData<User>? = null
 
     fun signInWithGoogle(googleAuthCredential: AuthCredential?) {
         authenticatedUserLiveData = authRepository.firebaseSignInWithGoogle(googleAuthCredential)
