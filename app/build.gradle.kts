@@ -5,6 +5,7 @@ plugins {
     kotlin("android")
     kotlin("android.extensions")
     kotlin("kapt")
+    id("kotlin-android")
 }
 
 android {
@@ -48,6 +49,7 @@ android {
 }
 
 dependencies {
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-alpha06")
     val kotlinVersion = "1.4.10"
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")

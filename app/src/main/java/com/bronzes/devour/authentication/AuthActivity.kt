@@ -9,17 +9,22 @@ import androidx.activity.result.contract.ActivityResultContracts.StartActivityFo
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Text
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Button
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.setContent
 import androidx.ui.tooling.preview.Preview
+import com.bronzes.devour.Home
 import com.bronzes.devour.R
+import com.bronzes.devour.ui.DevourTheme
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -41,7 +46,9 @@ class AuthActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            Greetings()
+            Surface(color = MaterialTheme.colors.background) {
+                Greetings()
+            }
         }
 
         initGoogleSignInClient()
@@ -93,7 +100,7 @@ class AuthActivity : AppCompatActivity() {
     }
 
     private fun goToMainActivity(user: User) {
-        val intent = Intent(this@AuthActivity, AuthActivity::class.java)
+        val intent = Intent(this@AuthActivity, Home::class.java)
         intent.putExtra(USER, user)
         startActivity(intent)
         finish()
@@ -102,15 +109,18 @@ class AuthActivity : AppCompatActivity() {
     @Preview
     @Composable
     fun Greetings() {
-        Column(
-                modifier = Modifier.fillMaxWidth().fillMaxHeight(),
+        DevourTheme {
+            Column(
+                modifier = Modifier.fillMaxWidth().fillMaxHeight().background(MaterialTheme.colors.background),
                 verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Button(
-                    onClick = { signIn() },
+                horizontalAlignment = Alignment.CenterHorizontally,
+
             ) {
-                Text("Sign-in with Google")
+                Button(
+                    onClick = { signIn() },
+                ) {
+                    Text("Sign-in with Google")
+                }
             }
         }
     }
