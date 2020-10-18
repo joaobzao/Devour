@@ -12,8 +12,7 @@ import androidx.compose.foundation.Text
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -36,7 +35,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AuthActivity : AppCompatActivity() {
-    private val USER = "user"
     private val TAG = this.javaClass.name
     private val authViewModel: AuthViewModel by viewModels()
 
@@ -47,7 +45,7 @@ class AuthActivity : AppCompatActivity() {
 
         setContent {
             Surface(color = MaterialTheme.colors.background) {
-                Greetings()
+                SignInButton()
             }
         }
 
@@ -101,17 +99,17 @@ class AuthActivity : AppCompatActivity() {
 
     private fun goToMainActivity(user: User) {
         val intent = Intent(this@AuthActivity, Home::class.java)
-        intent.putExtra(USER, user)
+        intent.putExtra(Companion.USER, user)
         startActivity(intent)
         finish()
     }
 
     @Preview
     @Composable
-    fun Greetings() {
+    fun SignInButton() {
         DevourTheme {
             Column(
-                modifier = Modifier.fillMaxWidth().fillMaxHeight().background(MaterialTheme.colors.background),
+                modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.background),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
 
@@ -123,5 +121,9 @@ class AuthActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    companion object {
+        val USER = "user"
     }
 }
