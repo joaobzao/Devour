@@ -16,6 +16,7 @@ import androidx.compose.ui.platform.setContent
 import androidx.ui.tooling.preview.Preview
 import com.bronzes.devour.authentication.AuthActivity
 import com.bronzes.devour.authentication.User
+import com.bronzes.devour.search.compose.Search
 import com.bronzes.devour.ui.DevourTheme
 
 class Home : AppCompatActivity() {
@@ -41,6 +42,7 @@ fun Greeting(user: User = User("", "batatas", "")) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Search()
             Text(text = "Hello ${user.name}!")
         }
     }

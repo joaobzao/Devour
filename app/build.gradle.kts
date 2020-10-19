@@ -50,7 +50,9 @@ android {
 
 dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-alpha06")
+    //implementation("androidx.compose:compose-runtime:0.1.0-dev14")
     val kotlinVersion = "1.4.10"
+    val composeVersion = "1.0.0-alpha05"
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
     implementation("androidx.core:core-ktx:1.3.2")
@@ -58,27 +60,29 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("com.google.android.material:material:1.2.1")
 
-    implementation("androidx.compose.ui:ui:1.0.0-alpha04")
+    implementation("androidx.compose.runtime:runtime:$composeVersion")
+    implementation("androidx.compose.runtime:runtime-dispatch:$composeVersion")
+
     // Tooling support (Previews, etc.)
-    implementation("androidx.ui:ui-tooling:1.0.0-alpha04")
+    implementation("androidx.ui:ui-tooling:$composeVersion")
     // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
-    implementation("androidx.compose.foundation:foundation:1.0.0-alpha04")
+    implementation("androidx.compose.foundation:foundation:$composeVersion")
+
+    implementation("androidx.compose.ui:ui:$composeVersion")
+
     // Material Design
-    implementation("androidx.compose.material:material:1.0.0-alpha04")
+    implementation("androidx.compose.material:material:$composeVersion")
     // Material design icons
-    implementation("androidx.compose.material:material-icons-core:1.0.0-alpha04")
-    implementation("androidx.compose.material:material-icons-extended:1.0.0-alpha04")
+    implementation("androidx.compose.material:material-icons-core:$composeVersion")
+    implementation("androidx.compose.material:material-icons-extended:$composeVersion")
     // Integration with observables
-    implementation("androidx.compose.runtime:runtime-livedata:1.0.0-alpha04")
-    implementation("androidx.compose.runtime:runtime-rxjava2:1.0.0-alpha04")
+    implementation("androidx.compose.runtime:runtime-livedata:$composeVersion")
 
     implementation(platform("com.google.firebase:firebase-bom:25.11.0"))
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-auth-ktx")
 
     implementation("com.google.android.gms:play-services-auth:18.1.0")
-
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
     implementation("com.google.dagger:hilt-android:2.28-alpha")
     implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha01")
