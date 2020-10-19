@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.savedinstancestate.savedInstanceState
 import androidx.compose.ui.Alignment
@@ -66,6 +67,9 @@ private fun SearchTextField(
         imeAction = ImeAction.Search,
         onImeActionPerformed = { _, keyboardController ->
             keyboardController?.hideSoftwareKeyboard()
+        },
+        leadingIcon = {
+            Icon(asset = Icons.Default.Search)
         },
         trailingIcon = {
             AnimatedVisibility(
