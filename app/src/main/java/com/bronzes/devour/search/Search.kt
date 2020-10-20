@@ -1,4 +1,4 @@
-package com.bronzes.devour.search.compose
+package com.bronzes.devour.search
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
