@@ -19,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.savedinstancestate.savedInstanceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.onSizeChanged
 import androidx.compose.ui.platform.DensityAmbient
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -35,17 +36,19 @@ fun Search(
     action: (SearchAction) -> Unit
 ) {
     Box(Modifier.fillMaxSize()) {
+        val searchBarHeight = remember { mutableStateOf(0) }
 
         SearchList(
             results = state.results,
             contentPadding = PaddingValues(
-                top = with(DensityAmbient.current) { 0.toDp() }
+                top = with(DensityAmbient.current) { searchBarHeight.value.toDp() }
             ),
             onShowClicked = { action(SearchAction.OpenMenuItemDetails(it.id)) }
         )
 
         Box(
             modifier = Modifier
+                .onSizeChanged { searchBarHeight.value = it.height }
                 .background(MaterialTheme.colors.surface.copy(alpha = 0.95f))
                 .fillMaxWidth()
                 .align(Alignment.TopCenter)
