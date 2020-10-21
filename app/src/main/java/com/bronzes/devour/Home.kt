@@ -16,7 +16,9 @@ import androidx.compose.ui.platform.setContent
 import androidx.ui.tooling.preview.Preview
 import com.bronzes.devour.authentication.AuthActivity
 import com.bronzes.devour.authentication.User
+import com.bronzes.devour.data.MenuItem
 import com.bronzes.devour.search.Search
+import com.bronzes.devour.search.SearchViewState
 import com.bronzes.devour.ui.DevourTheme
 
 class Home : AppCompatActivity() {
@@ -42,8 +44,19 @@ fun Greeting(user: User = User("", "batatas", "")) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Search()
+            Search(SearchViewState(query = "", results = results)) { action ->
+                println("action -> $action")
+            }
             Text(text = "Hello ${user.name}!")
         }
     }
 }
+
+val results = listOf(
+    MenuItem(1, "Sicario", "dummy description", images = listOf("")),
+    MenuItem(2, "Gazela", "dummy description", images = listOf("")),
+    MenuItem(3, "Santiago", "dummy description", images = listOf("")),
+    MenuItem(4, "ola ola", "dummy description", images = listOf("")),
+    MenuItem(5, "Sicario", "dummy description", images = listOf("")),
+    MenuItem(6, "Sicario", "dummy description", images = listOf("")),
+)
