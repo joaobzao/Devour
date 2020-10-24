@@ -1,8 +1,9 @@
 package com.bronzes.devour
 
 import android.os.Bundle
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.Text
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,53 +11,71 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.setContent
+import androidx.lifecycle.lifecycleScope
 import androidx.ui.tooling.preview.Preview
 import com.bronzes.devour.authentication.AuthActivity
 import com.bronzes.devour.authentication.User
-import com.bronzes.devour.data.MenuItem
 import com.bronzes.devour.search.Search
-import com.bronzes.devour.search.SearchViewState
+import com.bronzes.devour.search.SearchAction
+import com.bronzes.devour.search.SearchViewModel
 import com.bronzes.devour.ui.DevourTheme
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.channels.Channel
 
+@AndroidEntryPoint
 class Home : AppCompatActivity() {
+    private val viewModel: SearchViewModel by viewModels()
+    private val pendingActions = Channel<SearchAction>(Channel.BUFFERED)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val user = intent.getParcelableExtra<User>(AuthActivity.USER)
+
+        Toast.makeText(this, user?.name, Toast.LENGTH_SHORT).show()
+
+        lifecycleScope.launchWhenStarted {
+            for (action in pendingActions) {
+                println("🦠 action -> $action")
+                when (action) {
+                    is SearchAction.OpenMenuItemDetails -> {
+                        Toast.makeText(this@Home, "🦠 is going to navigate to MenuItemDetails with action -> $action", Toast.LENGTH_SHORT).show()
+                    }
+                    else -> viewModel.submitAction(action)
+                }
+            }
+        }
+
         setContent {
             DevourTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    intent.getParcelableExtra<User>(AuthActivity.USER)?.let { Greeting(it) }
+                    user?.let { Greeting(it) }
+                }
+            }
+        }
+    }
+
+    @Preview
+    @Composable
+    fun Greeting(user: User = User("", "batatas", "")) {
+        val viewState by viewModel.liveData.observeAsState()
+        DevourTheme {
+            Column(
+                modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.background),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                viewState?.let {
+                    Search(it) { action ->
+                        pendingActions.offer(action)
+                    }
                 }
             }
         }
     }
 }
-
-@Preview
-@Composable
-fun Greeting(user: User = User("", "batatas", "")) {
-    DevourTheme {
-        Column(
-            modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.background),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Search(SearchViewState(query = "", results = results)) { action ->
-                println("action -> $action")
-            }
-            Text(text = "Hello ${user.name}!")
-        }
-    }
-}
-
-val results = listOf(
-    MenuItem(1, "Sicario", "dummy description", images = listOf("")),
-    MenuItem(2, "Gazela", "dummy description", images = listOf("")),
-    MenuItem(3, "Santiago", "dummy description", images = listOf("")),
-    MenuItem(4, "ola ola", "dummy description", images = listOf("")),
-    MenuItem(5, "Sicario", "dummy description", images = listOf("")),
-    MenuItem(6, "Sicario", "dummy description", images = listOf("")),
-)
