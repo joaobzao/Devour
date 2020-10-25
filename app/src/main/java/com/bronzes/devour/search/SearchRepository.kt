@@ -62,6 +62,7 @@ class SearchRepository @Inject constructor() {
             val data = firestore
                 .collection("Restaurant")
                 .whereGreaterThanOrEqualTo("bestMenuItem", query)
+                .whereLessThanOrEqualTo("bestMenuItem", "$query~")
                 .get()
                 .await()
 
