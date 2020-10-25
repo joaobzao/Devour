@@ -13,7 +13,7 @@ class SearchMenuItems @Inject constructor(
     override suspend fun doWork(params: Params): List<MenuItem> {
         return withContext(dispatchers.io) {
             val remoteResults = searchRepository.fetchMenuItems(params.query)
-            if (remoteResults.isNotEmpty()) {
+            if (!remoteResults.isNullOrEmpty()) {
                 remoteResults
             } else {
                 emptyList()

@@ -1,17 +1,83 @@
 package com.bronzes.devour.search
 
 import com.bronzes.devour.data.MenuItem
+import com.bronzes.devour.data.Restaurant
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class SearchRepository @Inject constructor() {
-    fun fetchMenuItems(query: String): List<MenuItem> = listOf(
-        MenuItem(1, "Sicario", "dummy description $query", images = listOf("")),
-        MenuItem(2, "Gazela", "dummy description $query", images = listOf("")),
-        MenuItem(3, "Santiago", "dummy description $query", images = listOf("")),
-        MenuItem(4, "ola ola", "dummy description $query", images = listOf("")),
-        MenuItem(5, "Sicario", "dummy description $query", images = listOf("")),
-        MenuItem(6, "Sicario", "dummy description $query", images = listOf("")),
+    private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
+
+    /* Dummy data
+    val francesinha = MenuItem(
+        name = "Francesinha",
+        type = listOf("À Porto carago", "picante no ponto"),
+        images = listOf("https://media-cdn.tripadvisor.com/media/photo-s/08/77/5e/6a/photo0jpg.jpg"),
+        alternateName = listOf("sandes", "sandwish", "tosta"),
+        description = "Iguaria que nasceu no Porto mas que se encontra por todo o norte de Portugal. Uma espécie de sande com carnes, enchidos, queijos e um molho especial que é diferente de restaurante para restaurante.",
+        rateStar = 5
     )
+
+    val francesinha1 = MenuItem(
+        name = "Francesinha",
+        type = listOf("À Porto carago", "picante no ponto"),
+        images = listOf("https://media-cdn.tripadvisor.com/media/photo-s/06/ca/2c/83/bon-appetit.jpg"),
+        alternateName = listOf("sandes", "sandwish", "tosta"),
+        description = "Iguaria que nasceu no Porto mas que se encontra por todo o norte de Portugal. Uma espécie de sande com carnes, enchidos, queijos e um molho especial que é diferente de restaurante para restaurante.",
+        rateStar = 4
+    )
+
+    val santiago = Restaurant(
+        name = "Café Santiago",
+        description = "A mais conhecida, de longe.",
+        images = listOf("https://cafesantiago.pt/images/2019/11/12/francesinha16.jpg"),
+        servesCuisine = listOf("Portuguesa", "Nortenha"),
+        menuItemNames = listOf("francesinha", "prego", "rosbife"),
+        hasMenuItem = listOf(francesinha1))
+
+    val francesinhaCafe = Restaurant(
+        name = "Francesinha Café",
+        description = "A melhor de todas. Especializado em francesinhas, com ingredientes e qualidade e com vários trofeus ganhos em competições de gastronómicas.",
+        images = listOf("https://b.zmtcdn.com/data/pictures/6/17835186/763bc7d2da2138ab94c7ab7dfa2069b3.jpg"),
+        servesCuisine = listOf("Portuguesa", "Nortenha"),
+        menuItemNames = listOf("francesinha", "prego"),
+        hasMenuItem = listOf(francesinha))*/
+
+    suspend fun fetchMenuItems(query: String): List<MenuItem>? {
+
+        /* How to add stuff
+        listOf(santiago, francesinhaCafe).forEach { restaurant ->
+            firestore.collection("Restaurant").add(restaurant).addOnSuccessListener {
+                println("🦠🦠 ${it.id}")
+            }
+        }*/
+
+        return try {
+            val data = firestore
+                .collection("Restaurant")
+                .whereArrayContains("menuItemNames", "francesinha")
+                .get()
+                .await()
+
+                val menuItems = mutableListOf<MenuItem>()
+
+                for (document in  data) {
+                    println("🦠 ${document.id} => ${document.data}")
+                    val restaurantItem = document.toObject(Restaurant::class.java)
+                    val menuItem = document.toObject(MenuItem::class.java)
+                    println("🦠 $restaurantItem")
+                    println("🦠 $menuItem")
+                    menuItems.add(menuItem)
+                }
+                println("🦠 menuItems => $menuItems")
+
+            menuItems
+
+        } catch (e: Exception) {
+            null
+        }
+    }
 }
