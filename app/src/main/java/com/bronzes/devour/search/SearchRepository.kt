@@ -11,7 +11,7 @@ import javax.inject.Singleton
 class SearchRepository @Inject constructor() {
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
 
-    /* Dummy data
+    /* Dummy data*/
     val francesinha = MenuItem(
         name = "Francesinha",
         type = listOf("À Porto carago", "picante no ponto"),
@@ -35,46 +35,46 @@ class SearchRepository @Inject constructor() {
         description = "A mais conhecida, de longe.",
         images = listOf("https://cafesantiago.pt/images/2019/11/12/francesinha16.jpg"),
         servesCuisine = listOf("Portuguesa", "Nortenha"),
-        menuItemNames = listOf("francesinha", "prego", "rosbife"),
-        hasMenuItem = listOf(francesinha1))
+        bestMenuItem = "francesinha",
+        hasMenuItem = francesinha1)
 
     val francesinhaCafe = Restaurant(
         name = "Francesinha Café",
         description = "A melhor de todas. Especializado em francesinhas, com ingredientes e qualidade e com vários trofeus ganhos em competições de gastronómicas.",
         images = listOf("https://b.zmtcdn.com/data/pictures/6/17835186/763bc7d2da2138ab94c7ab7dfa2069b3.jpg"),
         servesCuisine = listOf("Portuguesa", "Nortenha"),
-        menuItemNames = listOf("francesinha", "prego"),
-        hasMenuItem = listOf(francesinha))*/
+        bestMenuItem = "francesinha",
+        hasMenuItem = francesinha)
 
-    suspend fun fetchMenuItems(query: String): List<MenuItem>? {
+    suspend fun search(query: String): List<Restaurant>? {
 
-        /* How to add stuff
-        listOf(santiago, francesinhaCafe).forEach { restaurant ->
+         /*How to add stuff*/
+        /*listOf(santiago, francesinhaCafe).forEach { restaurant ->
             firestore.collection("Restaurant").add(restaurant).addOnSuccessListener {
                 println("🦠🦠 ${it.id}")
             }
         }*/
+        if (query.length < 2) {
+            return emptyList()
+        }
 
         return try {
             val data = firestore
                 .collection("Restaurant")
-                .whereArrayContains("menuItemNames", "francesinha")
+                .whereGreaterThanOrEqualTo("bestMenuItem", query)
                 .get()
                 .await()
 
-                val menuItems = mutableListOf<MenuItem>()
+                val restaurants = mutableListOf<Restaurant>()
 
                 for (document in  data) {
                     println("🦠 ${document.id} => ${document.data}")
                     val restaurantItem = document.toObject(Restaurant::class.java)
-                    val menuItem = document.toObject(MenuItem::class.java)
-                    println("🦠 $restaurantItem")
-                    println("🦠 $menuItem")
-                    menuItems.add(menuItem)
+                    restaurants.add(restaurantItem)
                 }
-                println("🦠 menuItems => $menuItems")
+                println("🦠 restaurants => $restaurants}")
 
-            menuItems
+            restaurants.sortedByDescending { it.hasMenuItem.rateStar }
 
         } catch (e: Exception) {
             null

@@ -42,7 +42,7 @@ class Home : AppCompatActivity() {
             for (action in pendingActions) {
                 println("🦠 action -> $action")
                 when (action) {
-                    is SearchAction.OpenMenuItemDetails -> {
+                    is SearchAction.OpenRestaurantDetails -> {
                         Toast.makeText(this@Home, "🦠 is going to navigate to MenuItemDetails with action -> $action", Toast.LENGTH_SHORT).show()
                     }
                     else -> viewModel.submitAction(action)

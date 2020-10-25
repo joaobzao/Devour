@@ -3,8 +3,6 @@ package com.bronzes.devour.data
 import com.google.firebase.firestore.DocumentId
 
 data class MenuItem(
-    @DocumentId
-    val id: String = "",
     val name: String = "",
     val type: List<String> = emptyList(),
     val description: String? = "",
@@ -20,6 +18,6 @@ data class Restaurant(
     val description: String? = "",
     val images: List<String> = emptyList(),
     val servesCuisine: List<String> = emptyList(),
-    val menuItemNames: List<String> = emptyList(),
-    val hasMenuItem: List<MenuItem> = emptyList()
+    val bestMenuItem: String = "",
+    val hasMenuItem: MenuItem = MenuItem()
 )

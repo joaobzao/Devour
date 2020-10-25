@@ -28,7 +28,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.bronzes.devour.R
 import com.bronzes.devour.compose.WorkaroundLazyColumnFor
-import com.bronzes.devour.data.MenuItem
+import com.bronzes.devour.data.Restaurant
 
 @Composable
 fun Search(
@@ -43,7 +43,7 @@ fun Search(
             contentPadding = PaddingValues(
                 top = with(DensityAmbient.current) { searchBarHeight.value.toDp() }
             ),
-            onShowClicked = { action(SearchAction.OpenMenuItemDetails(it.id)) }
+            onShowClicked = { action(SearchAction.OpenRestaurantDetails(it.id)) }
         )
 
         Box(
@@ -73,8 +73,8 @@ fun Search(
 
 @Composable
 private fun SearchList(
-    results: List<MenuItem>,
-    onShowClicked: (MenuItem) -> Unit,
+    results: List<Restaurant>,
+    onShowClicked: (Restaurant) -> Unit,
     contentPadding: PaddingValues = PaddingValues(0.dp),
 ) {
     WorkaroundLazyColumnFor(
@@ -82,7 +82,7 @@ private fun SearchList(
         contentPadding = contentPadding
     ) { result ->
         SearchRow(
-            menuItem = result,
+            restaurant = result,
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable { onShowClicked(result) }
@@ -92,7 +92,7 @@ private fun SearchList(
 
 @Composable
 private fun SearchRow(
-    menuItem: MenuItem,
+    restaurant: Restaurant,
     modifier: Modifier = Modifier
 ) {
     Row(modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
@@ -102,15 +102,15 @@ private fun SearchRow(
         Column(Modifier.weight(1f).align(Alignment.CenterVertically)) {
             ProvideEmphasis(AmbientEmphasisLevels.current.high) {
                 Text(
-                    text = menuItem.name,
+                    text = restaurant.name,
                     style = MaterialTheme.typography.subtitle1,
                 )
             }
 
-            if (menuItem.description?.isNotEmpty() == true) {
+            if (restaurant.description?.isNotEmpty() == true) {
                 ProvideEmphasis(AmbientEmphasisLevels.current.medium) {
                     Text(
-                        text = menuItem.description,
+                        text = restaurant.description,
                         style = MaterialTheme.typography.caption,
                         overflow = TextOverflow.Ellipsis,
                         maxLines = 2,
