@@ -2,4 +2,5 @@
     <string name="app_name">Devour</string>
     <string name="title_activity_home">Home</string>
     <string name="search_hint">Search food</string>
+    <string name="add_menu_item">Add a super meal</string>
 </resources>

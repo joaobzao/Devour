@@ -20,6 +20,7 @@ fun <T> WorkaroundLazyColumnFor(
     state: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
     horizontalAlignment: Alignment.Horizontal = Alignment.Start,
+    onListState: (LazyListState) -> Unit,
     itemContent: @Composable LazyItemScope.(T) -> Unit
 ) {
     LazyColumn(
@@ -28,6 +29,8 @@ fun <T> WorkaroundLazyColumnFor(
         contentPadding = contentPadding.copy(top = 0.dp, bottom = 0.dp),
         horizontalAlignment = horizontalAlignment
     ) {
+        onListState(state)
+
         if (contentPadding.top > 0.dp) {
             item { Spacer(Modifier.preferredHeight(contentPadding.top)) }
         }

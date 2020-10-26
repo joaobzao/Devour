@@ -9,9 +9,12 @@ import androidx.compose.foundation.Text
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Fastfood
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -27,6 +30,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.bronzes.devour.R
+import com.bronzes.devour.compose.ExpandableFloatingActionButton
 import com.bronzes.devour.compose.WorkaroundLazyColumnFor
 import com.bronzes.devour.data.Restaurant
 
@@ -36,6 +40,7 @@ fun Search(
     action: (SearchAction) -> Unit
 ) {
     Box(Modifier.fillMaxSize()) {
+        var listState = rememberLazyListState()
         val searchBarHeight = remember { mutableStateOf(0) }
 
         SearchList(
@@ -43,8 +48,19 @@ fun Search(
             contentPadding = PaddingValues(
                 top = with(DensityAmbient.current) { searchBarHeight.value.toDp() }
             ),
+            listState = { listState = it },
             onShowClicked = { action(SearchAction.OpenRestaurantDetails(it.id)) }
         )
+
+        Column(Modifier.fillMaxWidth().align(Alignment.BottomCenter)) {
+            ToggleShowFollowFloatingActionButton(
+                expanded = listState.firstVisibleItemIndex < 1,
+                onClick = { println("🦠 ${listState.firstVisibleItemIndex}") },
+                modifier = Modifier
+                    .align(Alignment.End)
+                    .padding(16.dp)
+            )
+        }
 
         Box(
             modifier = Modifier
@@ -72,14 +88,34 @@ fun Search(
 }
 
 @Composable
+private fun ToggleShowFollowFloatingActionButton(
+    onClick: () -> Unit,
+    expanded: Boolean = true,
+    modifier: Modifier = Modifier
+) {
+    ExpandableFloatingActionButton(
+        onClick = onClick,
+        icon = { Icon(Icons.Default.Fastfood) },
+        text = {
+            Text(stringResource(id = R.string.add_menu_item))
+        },
+        backgroundColor = MaterialTheme.colors.surface,
+        expanded = expanded,
+        modifier = modifier
+    )
+}
+
+@Composable
 private fun SearchList(
     results: List<Restaurant>,
     onShowClicked: (Restaurant) -> Unit,
+    listState: (LazyListState) -> Unit,
     contentPadding: PaddingValues = PaddingValues(0.dp),
 ) {
     WorkaroundLazyColumnFor(
         items = results,
-        contentPadding = contentPadding
+        contentPadding = contentPadding,
+        onListState = listState
     ) { result ->
         SearchRow(
             restaurant = result,
@@ -113,7 +149,7 @@ private fun SearchRow(
                         text = restaurant.description,
                         style = MaterialTheme.typography.caption,
                         overflow = TextOverflow.Ellipsis,
-                        maxLines = 2,
+                        maxLines = 3,
                     )
                 }
             }
