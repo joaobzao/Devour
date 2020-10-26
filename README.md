@@ -1,7 +1,7 @@
 # Devour (work-in-progress 👷🔧️👷‍♀️⛏)
 It looks like just another food/restaurant app but actually this one tells you what are the best dishes from each restaurante (according to peoples reviews). Some apps shows what are the best restaurants around but this one tells you what you should eat.
 
-[![Build Status](https://travis-ci.org/joaobzao/Devour.svg?branch=master)](https://travis-ci.org/joaobzao/Devour)
+[![Build Status](https://travis-ci.org/joaobzao/Devour.svg?branch=main)](https://travis-ci.org/joaobzao/Devour)
 [![codebeat badge](https://codebeat.co/badges/6d2a3e78-e94e-424e-b6c4-ee99506280a9)](https://codebeat.co/projects/github-com-joaobzao-devour-main)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
