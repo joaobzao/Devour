@@ -69,7 +69,6 @@ class SearchRepository @Inject constructor() {
                 val restaurants = mutableListOf<Restaurant>()
 
                 for (document in  data) {
-                    println("🦠 ${document.id} => ${document.data}")
                     val restaurantItem = document.toObject(Restaurant::class.java)
                     restaurants.add(restaurantItem)
                 }

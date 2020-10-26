@@ -27,6 +27,11 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
+
+    lintOptions {
+        disable("InvalidFragmentVersionForActivityResult")
+    }
+
     buildFeatures {
         // Enables Jetpack Compose for this module
         compose = true
