@@ -43,7 +43,11 @@ class Home : AppCompatActivity() {
                 println("🦠 action -> $action")
                 when (action) {
                     is SearchAction.OpenRestaurantDetails -> {
-                        Toast.makeText(this@Home, "🦠 is going to navigate to MenuItemDetails with action -> $action", Toast.LENGTH_SHORT).show()
+                        val message = "🦠 is going to navigate to MenuItemDetails with action -> $action"
+                        Toast.makeText(this@Home, message, Toast.LENGTH_SHORT).show()
+                    }
+                    is SearchAction.AddSuperMeal -> {
+                        Toast.makeText(this@Home, "Add super meal action pressed", Toast.LENGTH_SHORT).show()
                     }
                     else -> viewModel.submitAction(action)
                 }

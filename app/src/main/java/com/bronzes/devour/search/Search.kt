@@ -55,7 +55,7 @@ fun Search(
         Column(Modifier.fillMaxWidth().align(Alignment.BottomCenter)) {
             ToggleShowFollowFloatingActionButton(
                 expanded = listState.firstVisibleItemIndex < 1,
-                onClick = { println("🦠 ${listState.firstVisibleItemIndex}") },
+                onClick = { action(SearchAction.AddSuperMeal) },
                 modifier = Modifier
                     .align(Alignment.End)
                     .padding(16.dp)
