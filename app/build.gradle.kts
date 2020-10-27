@@ -62,9 +62,9 @@ dependencies {
     val composeVersion = "1.0.0-alpha05"
     val lifecycleVersion = "2.3.0-beta01"
 
-    //implementation("androidx.lifecycle:lifecycle-extensions:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
     implementation("androidx.core:core-ktx:1.3.2")

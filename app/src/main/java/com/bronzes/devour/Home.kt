@@ -1,5 +1,6 @@
 package com.bronzes.devour
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -20,6 +21,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.ui.tooling.preview.Preview
 import com.bronzes.devour.authentication.AuthActivity
 import com.bronzes.devour.authentication.User
+import com.bronzes.devour.meal.MealActivity
 import com.bronzes.devour.search.Search
 import com.bronzes.devour.search.SearchAction
 import com.bronzes.devour.search.SearchViewModel
@@ -47,7 +49,7 @@ class Home : AppCompatActivity() {
                         Toast.makeText(this@Home, message, Toast.LENGTH_SHORT).show()
                     }
                     is SearchAction.AddSuperMeal -> {
-                        Toast.makeText(this@Home, "Add super meal action pressed", Toast.LENGTH_SHORT).show()
+                        goToMealActivity()
                     }
                     else -> viewModel.submitAction(action)
                 }
@@ -62,6 +64,11 @@ class Home : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun goToMealActivity() {
+        val intent = Intent(this, MealActivity::class.java)
+        startActivity(intent)
     }
 
     @Preview
