@@ -19,10 +19,10 @@ fun AddForm() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            val name = savedInstanceState(saver = TextFieldValue.Saver) {
+            val mealName = savedInstanceState(saver = TextFieldValue.Saver) {
                 TextFieldValue("")
             }
-            val description = savedInstanceState(saver = TextFieldValue.Saver) {
+            val restaurantName = savedInstanceState(saver = TextFieldValue.Saver) {
                 TextFieldValue("")
             }
             val location = savedInstanceState(saver = TextFieldValue.Saver) {
@@ -38,12 +38,12 @@ fun AddForm() {
             Spacer(modifier = Modifier.preferredHeight(44.dp))
 
             OutlinedTextField(
-                value = name.value,
-                onValueChange = { name.value = it },
+                value = mealName.value,
+                onValueChange = { mealName.value = it },
                 label = {
                     ProvideEmphasis(emphasis = AmbientEmphasisLevels.current.medium) {
                         Text(
-                            text = "Name",
+                            text = "Meal name",
                             style = MaterialTheme.typography.body1
                         )
                     }
@@ -53,12 +53,12 @@ fun AddForm() {
             Spacer(modifier = Modifier.preferredHeight(16.dp))
 
             OutlinedTextField(
-                value = description.value,
-                onValueChange = { description.value = it },
+                value = restaurantName.value,
+                onValueChange = { restaurantName.value = it },
                 label = {
                     ProvideEmphasis(emphasis = AmbientEmphasisLevels.current.medium) {
                         Text(
-                            text = "Description",
+                            text = "Restaurant name",
                             style = MaterialTheme.typography.body1
                         )
                     }
