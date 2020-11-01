@@ -17,50 +17,30 @@ import com.bronzes.devour.data.Restaurant
 fun AddMeal(action: (AddMealAction) -> Unit) {
     Box(Modifier.fillMaxSize()) {
 
-        val mealName = savedInstanceState(saver = TextFieldValue.Saver) {
-            TextFieldValue("")
-        }
-        val restaurantName = savedInstanceState(saver = TextFieldValue.Saver) {
-            TextFieldValue("")
-        }
-        val location = savedInstanceState(saver = TextFieldValue.Saver) {
-            TextFieldValue("")
-        }
-        val type = savedInstanceState(saver = TextFieldValue.Saver) {
-            TextFieldValue("")
-        }
-        val rate = savedInstanceState(saver = TextFieldValue.Saver) {
-            TextFieldValue("")
-        }
+        val mealName = savedInstanceState(saver = TextFieldValue.Saver) { TextFieldValue("") }
+        val restaurantName = savedInstanceState(saver = TextFieldValue.Saver) { TextFieldValue("") }
+        val location = savedInstanceState(saver = TextFieldValue.Saver) { TextFieldValue("") }
+        val type = savedInstanceState(saver = TextFieldValue.Saver) { TextFieldValue("") }
+        val rate = savedInstanceState(saver = TextFieldValue.Saver) { TextFieldValue("") }
 
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
             Spacer(modifier = Modifier.preferredHeight(44.dp))
-
             MealOutlinedTextField(mealName, "Meal name")
-
             Spacer(modifier = Modifier.preferredHeight(16.dp))
-
             MealOutlinedTextField(restaurantName, "Restaurant name")
-
             Spacer(modifier = Modifier.preferredHeight(16.dp))
-
             MealOutlinedTextField(location, "Location")
-
             Spacer(modifier = Modifier.preferredHeight(16.dp))
-
             MealOutlinedTextField(type, "Type")
-
             Spacer(modifier = Modifier.preferredHeight(16.dp))
-
             MealOutlinedTextField(rate, "Rate")
         }
 
         Spacer(modifier = Modifier.preferredHeight(44.dp))
-        
+
         Column(Modifier.fillMaxWidth().align(Alignment.BottomCenter)) {
             Button(
                 enabled = true,
@@ -68,7 +48,7 @@ fun AddMeal(action: (AddMealAction) -> Unit) {
                     .align(Alignment.CenterHorizontally)
                     .padding(16.dp),
                 onClick = {
-                    val restaurant = createRestaurant(mealName, restaurantName, type)
+                    val restaurant = createRestaurant(mealName, restaurantName, type, rate)
                     action(AddMealAction.SubmitMeal(restaurant))
                 }
             ) {
@@ -81,11 +61,12 @@ fun AddMeal(action: (AddMealAction) -> Unit) {
 private fun createRestaurant(
     mealName: MutableState<TextFieldValue>,
     restaurantName: MutableState<TextFieldValue>,
-    type: MutableState<TextFieldValue>
+    type: MutableState<TextFieldValue>,
+    rate: MutableState<TextFieldValue>
 ) : Restaurant {
     val menuItem = MenuItem(
         name = mealName.value.text,
-        rateStar = 4
+        rateStar = rate.value.text.toInt()
     )
 
     val restaurant = Restaurant(

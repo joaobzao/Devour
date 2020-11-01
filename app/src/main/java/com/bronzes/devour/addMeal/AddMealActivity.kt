@@ -2,6 +2,7 @@ package com.bronzes.devour.addMeal
 
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -15,11 +16,15 @@ import androidx.lifecycle.lifecycleScope
 import androidx.ui.tooling.preview.Preview
 import com.bronzes.devour.search.SearchAction
 import com.bronzes.devour.ui.DevourTheme
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.channels.Channel
 
 private val pendingActions = Channel<AddMealAction>(Channel.BUFFERED)
 
+@AndroidEntryPoint
 class AddMealActivity : AppCompatActivity() {
+    private val viewModel: AddMealViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -28,6 +33,7 @@ class AddMealActivity : AppCompatActivity() {
                 println("🦠 action -> $action")
                 when (action) {
                     is AddMealAction.SubmitMeal -> {
+                        viewModel.submitAction(action)
                         Toast.makeText(this@AddMealActivity, action.restaurant.toString(), Toast.LENGTH_SHORT).show()
                     }
                 }

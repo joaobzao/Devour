@@ -60,7 +60,7 @@ class Home : AppCompatActivity() {
             DevourTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    user?.let { Greeting(it) }
+                    user?.let { HomeScreen(it) }
                 }
             }
         }
@@ -73,7 +73,7 @@ class Home : AppCompatActivity() {
 
     @Preview
     @Composable
-    fun Greeting(user: User = User("", "batatas", "")) {
+    fun HomeScreen(user: User = User("", "batatas", "")) {
         val viewState by viewModel.liveData.observeAsState()
         DevourTheme {
             Column(
