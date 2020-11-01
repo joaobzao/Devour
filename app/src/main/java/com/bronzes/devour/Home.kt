@@ -21,7 +21,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.ui.tooling.preview.Preview
 import com.bronzes.devour.authentication.AuthActivity
 import com.bronzes.devour.authentication.User
-import com.bronzes.devour.meal.MealActivity
+import com.bronzes.devour.addMeal.AddMealActivity
 import com.bronzes.devour.search.Search
 import com.bronzes.devour.search.SearchAction
 import com.bronzes.devour.search.SearchViewModel
@@ -67,7 +67,7 @@ class Home : AppCompatActivity() {
     }
 
     private fun goToMealActivity() {
-        val intent = Intent(this, MealActivity::class.java)
+        val intent = Intent(this, AddMealActivity::class.java)
         startActivity(intent)
     }
 

@@ -1,31 +1,39 @@
-package com.bronzes.devour.meal
+package com.bronzes.devour.addMeal
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.Border
-import androidx.compose.foundation.ScrollableColumn
-import androidx.compose.foundation.Text
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
-import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.savedinstancestate.savedInstanceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.setContent
-import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.unit.dp
+import androidx.lifecycle.lifecycleScope
 import androidx.ui.tooling.preview.Preview
+import com.bronzes.devour.search.SearchAction
 import com.bronzes.devour.ui.DevourTheme
+import kotlinx.coroutines.channels.Channel
 
-class MealActivity : AppCompatActivity() {
+private val pendingActions = Channel<AddMealAction>(Channel.BUFFERED)
+
+class AddMealActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        lifecycleScope.launchWhenStarted {
+            for (action in pendingActions) {
+                println("🦠 action -> $action")
+                when (action) {
+                    is AddMealAction.SubmitMeal -> {
+                        Toast.makeText(this@AddMealActivity, action.restaurant.toString(), Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+
         setContent {
             DevourTheme {
                 // A surface container using the 'background' color from the theme
@@ -39,12 +47,14 @@ class MealActivity : AppCompatActivity() {
 
 @Composable
 fun AddFormContainer() {
-   Column(
-       modifier = Modifier.fillMaxWidth().background(MaterialTheme.colors.background),
-       horizontalAlignment = Alignment.CenterHorizontally
-   ) {
-       AddForm()
-   }
+    Column(
+        modifier = Modifier.fillMaxWidth().background(MaterialTheme.colors.background),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        AddMeal {
+            pendingActions.offer(it)
+        }
+    }
 }
 
 @Preview

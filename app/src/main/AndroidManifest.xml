@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Devour">
         <activity
-            android:name=".meal.MealActivity"
+            android:name=".addMeal.AddMealActivity"
             android:label="@string/title_activity_meal"
             android:theme="@style/Theme.Devour.NoActionBar" />
         <activity
