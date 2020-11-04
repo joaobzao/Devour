@@ -8,7 +8,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:4.2.0-alpha13")
+        classpath("com.android.tools.build:gradle:4.2.0-alpha15")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
         classpath("com.google.gms:google-services:4.3.4")
         classpath("com.google.dagger:hilt-android-gradle-plugin:2.28-alpha")
