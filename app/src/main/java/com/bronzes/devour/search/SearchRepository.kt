@@ -54,9 +54,6 @@ class SearchRepository @Inject constructor() {
                 println("🦠🦠 ${it.id}")
             }
         }*/
-        if (query.length < 2) {
-            return emptyList()
-        }
 
         return try {
             val data = firestore
