@@ -47,14 +47,6 @@ class SearchRepository @Inject constructor() {
         hasMenuItem = francesinha)
 
     suspend fun search(query: String): List<Restaurant>? {
-
-         /*How to add stuff*/
-        /*listOf(santiago, francesinhaCafe).forEach { restaurant ->
-            firestore.collection("Restaurant").add(restaurant).addOnSuccessListener {
-                println("🦠🦠 ${it.id}")
-            }
-        }*/
-
         return try {
             val data = firestore
                 .collection("Restaurant")
