@@ -1,6 +1,5 @@
 package com.bronzes.devour.search
 
-import com.bronzes.devour.data.MenuItem
 import com.bronzes.devour.data.Restaurant
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
