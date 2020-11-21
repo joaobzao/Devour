@@ -1,13 +1,23 @@
 package com.bronzes.devour.addMeal
 
+import androidx.compose.foundation.Icon
 import androidx.compose.foundation.Text
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.Fastfood
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.savedinstancestate.savedInstanceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.bronzes.devour.data.MenuItem
@@ -34,9 +44,9 @@ fun AddMeal(action: (AddMealAction) -> Unit) {
             Spacer(modifier = Modifier.preferredHeight(16.dp))
             MealOutlinedTextField(location, "Location")
             Spacer(modifier = Modifier.preferredHeight(16.dp))
-            MealOutlinedTextField(type, "Type")
-            Spacer(modifier = Modifier.preferredHeight(16.dp))
             MealOutlinedTextField(rate, "Rate")
+            Spacer(modifier = Modifier.preferredHeight(16.dp))
+            MealType(meals = listOf("francesinha", "robalo", "cachorrinhos", "cabidela"))
         }
 
         Spacer(modifier = Modifier.preferredHeight(44.dp))
@@ -53,6 +63,47 @@ fun AddMeal(action: (AddMealAction) -> Unit) {
                 }
             ) {
                 Text("Add Meal!")
+            }
+        }
+    }
+}
+
+@Composable
+fun MealType(meals: List<String> = emptyList()) {
+    val showMenu = remember { mutableStateOf(false) }
+    val selectedIndex = remember { mutableStateOf(0) }
+    val mealToggle = @Composable {
+        Row(
+            modifier = Modifier
+                .padding(24.dp)
+                .fillMaxWidth()
+                .clickable(onClick = { showMenu.value = true }),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Icon(Icons.Default.Fastfood)
+            Spacer(modifier = Modifier.preferredWidth(6.dp))
+            Text(meals[selectedIndex.value])
+            Spacer(modifier = Modifier.preferredWidth(6.dp))
+            Icon(Icons.Default.ArrowDropDown)
+        }
+
+    }
+
+    DropdownMenu(
+        toggle = mealToggle,
+        expanded = showMenu.value,
+        onDismissRequest = { showMenu.value = false },
+        toggleModifier = Modifier.fillMaxWidth().background(MaterialTheme.colors.surface),
+        dropdownModifier = Modifier.fillMaxWidth().background(Color.DarkGray)
+    ) {
+        meals.forEachIndexed { index, meal ->
+            DropdownMenuItem(
+                onClick = {
+                    selectedIndex.value = index
+                    showMenu.value = false
+                }
+            ) {
+                Text(text = meal)
             }
         }
     }
