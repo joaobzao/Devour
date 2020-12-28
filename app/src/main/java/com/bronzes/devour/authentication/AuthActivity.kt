@@ -30,6 +30,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.AuthCredential
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -50,6 +51,24 @@ class AuthActivity : AppCompatActivity() {
         }
 
         initGoogleSignInClient()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        resolveSilentSignIn()
+
+    }
+
+    private fun resolveSilentSignIn() {
+        val silentSignInTask = googleSignInClient.silentSignIn()
+
+        if (silentSignInTask.isSuccessful) {
+            silentSignInTask.addOnCompleteListener { account ->
+                account.result?.let {
+                    getGoogleAuthCredential(it)
+                }
+            }
+        }
     }
 
     private fun initGoogleSignInClient() {
