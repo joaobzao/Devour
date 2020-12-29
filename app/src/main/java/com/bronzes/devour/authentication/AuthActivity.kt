@@ -56,7 +56,6 @@ class AuthActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         resolveSilentSignIn()
-
     }
 
     private fun resolveSilentSignIn() {
